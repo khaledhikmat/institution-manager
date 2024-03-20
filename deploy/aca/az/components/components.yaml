@@ -11,7 +11,7 @@
   - name: redisHost
     value: storemanager-6.redis.cache.windows.net:6379
   - name: redisPassword
-    value: "Xf3gsmvLpS1PVPK8DDAe5OZnXRQvlXfwiAzCaDJYlmg="
+    value: ""
   - name: actorStateStore
     value: "true"
   - name: keyPrefix
@@ -27,7 +27,7 @@
   - name: redisHost
     value: storemanager-6.redis.cache.windows.net:6379
   - name: redisPassword
-    value: "Xf3gsmvLpS1PVPK8DDAe5OZnXRQvlXfwiAzCaDJYlmg="
+    value: ""
   - name: consumerID
     value: "myGroup"
   - name: enableTLS
