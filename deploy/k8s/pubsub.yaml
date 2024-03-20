@@ -1,0 +1,22 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: pledgemanager-local-pubsub
+  namespace: dapr-pledgemanager
+spec:
+  type: pubsub.redis
+  version: v1
+  metadata:
+  - name: redisHost
+    value: redis:6379
+  - name: redisPassword
+    value: ""
+  - name: consumerID
+    value: "myGroup"
+  - name: enableTLS
+    value: "false"
+auth:
+  secretStore: pledgemanager-secrets
+scopes:
+  - pledgemanager-local-campaigns
+  - pledgemanager-local-users

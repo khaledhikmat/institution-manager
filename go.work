@@ -1,0 +1,12 @@
+go 1.21.8
+
+use (
+	./campaign
+	./externalizer
+	./htmx
+	./institution
+	./member
+	./membership
+	./notifier
+	./shared
+)

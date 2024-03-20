@@ -1,0 +1,28 @@
+<div class="row mt-4 g-4">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">campaigns manager</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
+                <span class="nvbar-toggle-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        {{ if or (eq .Tab "Home") (eq .Tab "Campaigns")}}
+                        <a class="nav-link active" aria-current="page" href="/">home</a>
+                        {{ else }}
+                        <a class="nav-link" aria-current="page" href="/">home</a>
+                        {{ end }}
+                    </li>
+                    <li class="nav-item">
+                        {{ if eq .Tab "Donors" }}
+                        <a class="nav-link active" aria-current="page" href="/donors">donors</a>
+                        {{ else }}
+                        <a class="nav-link" aria-current="page" href="/donors">donors</a>
+                        {{ end }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>

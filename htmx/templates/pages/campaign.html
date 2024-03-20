@@ -1,0 +1,46 @@
+<div id="modal-backdrop" class="modal-backdrop fade show" style="display:block;"></div>
+<div id="modal" class="modal fade show" tabindex="-1" style="display:block;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ .Campaign.Name }}</h5>
+            </div>
+            <div class="modal-body">
+                {{ if .Error }}
+                <p class="text-danger">{{ .Error }}</p>
+                {{ end }}
+
+                <table class="table table-striped">
+                    <tr>
+                        <td>GOAL</td>
+                        <td>{{ .Campaign.Goal }} {{ .Campaign.Currency }}</td>
+                    </tr>
+                    <tr>
+                        <td>AWAY FROM GOAL</td>
+                        <td>{{ .Campaign.AwayFromGoal }} {{ .Campaign.Currency }}</td>
+                    </tr>
+                    <tr>
+                        <td>PLEDGES</td>
+                        <td>{{ .Campaign.Pledges }}</td>
+                    </tr>
+                    <tr>
+                        <td>DONORS</td>
+                        <td>{{ .Campaign.Donors }}</td>
+                    </tr>
+                    <tr>
+                        <td>TOTAL</td>
+                        <td>{{ .Campaign.TotPledgeAmount }}</td>
+                    </tr>
+                    <tr>
+                        <td>REMAINING TIME</td>
+                        <td>2 Hours</td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,439 @@
+{
+	"info": {
+		"_postman_id": "cacfadf3-6d8f-4af6-bee6-2da793004b75",
+		"name": "Pledge Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "886868"
+	},
+	"item": [
+		{
+			"name": "Get Fund Sink",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:6000/entities/fundsinks/Global",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6000",
+					"path": [
+						"entities",
+						"fundsinks",
+						"Global"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Institution",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"identifier\": \"INST-00001\",\n    \"type\": 2,\n    \"name\": \"ICSA\",\n    \"title\": \"Islamic Center of San Antonio\",\n    \"description\": \"ICSA is San Antonio's blah blah.....\",\n    \"imageUrl\": \"https://picsum.photos/200/300\",\n    \"currency\": \"USD\",\n    \"country\": \"USA\",\n    \"state\": \"TX\",\n    \"city\": \"SAT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:6000/entities/institutions",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6000",
+					"path": [
+						"entities",
+						"institutions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an Institution",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:6000/entities/institutions/INST-00001",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6000",
+					"path": [
+						"entities",
+						"institutions",
+						"INST-00001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Campaign",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"identifier\": \"CAMP-00001\",\r\n    \"type\": 1,\r\n    \"institution\": \"ICSA\",\r\n    \"institutionIdentifier\": \"INST-00001\",\r\n    \"name\": \"ICSA Expenses\",\r\n    \"title\": \"ICSA Masjed Expenses\",\r\n    \"description\": \"Masjed Expenses are very important to allow us to .....\",\r\n    \"imageUrl\": \"https://picsum.photos/200/200\",\r\n    \"currency\": \"USD\",\r\n    \"start\": \"2022-05-20T18:10:44.729015-05:00\",\r\n    \"stop\": \"2022-06-27T18:10:44.729015-05:00\",\r\n    \"isActive\": true,\r\n    \"goal\": 10000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:6000/entities/campaigns",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6000",
+					"path": [
+						"entities",
+						"campaigns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query Campaigns",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"filter\": {},\n    \"sort\": [\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:6001/api/campaignsquery",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6001",
+					"path": [
+						"api",
+						"campaignsquery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Campaign",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:6000/entities/campaigns/CAMP-00002",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6000",
+					"path": [
+						"entities",
+						"campaigns",
+						"CAMP-00002"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post a Pledge",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 1000,\n    \"userName\": \"2105551202\",\n    \"note\": \"some note\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:6000/entities/campaigns/CAMP-00002/pledges",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6000",
+					"path": [
+						"entities",
+						"campaigns",
+						"CAMP-00002",
+						"pledges"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a Match",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"command\": \"match\",\n    \"userName\": \"210551202\",\n    \"arg1\": \"some match note\",\n    \"arg5\": 1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:6000/entities/campaigns/CAMP-00001/commands",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6000",
+					"path": [
+						"entities",
+						"campaigns",
+						"CAMP-00001",
+						"commands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a Pledge Approval",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"command\": \"approve-pledge\",\n    \"userName\": \"2105551201\",\n    \"arg1\": \"d83c9fa9-f4ad-4f5c-aefa-47902ec8e375\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:6000/entities/campaigns/CAMP-00002/commands",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6000",
+					"path": [
+						"entities",
+						"campaigns",
+						"CAMP-00002",
+						"commands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put a Pledge Rejection",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"command\": \"reject-pledge\",\n    \"userName\": \"2105551201\",\n    \"arg1\": \"60f02ce6-7c88-41bf-99df-8647994cd024\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:6000/entities/campaigns/CAMP-00002/commands",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6000",
+					"path": [
+						"entities",
+						"campaigns",
+						"CAMP-00002",
+						"commands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put an Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"institution\": \"ICSA\",\n    \"institutionIdentifier\": \"INST-00001\",\n    \"title\": \"ICSA Masjed Expenses\",\n    \"description\": \"ICSA Masjed Expenses are very important to allow us to .....\",\n    \"imageUrl\": \"https://picsum.photos/200/200\",\n    \"isFeatured\": false,\n    \"lastItemsCount\": 10,\n    \"goal\": 10000,\n    \"behavior\": {\n        \"identifier\": \"804c4b11-b9c0-4149-9d84-d0c2f888a23b\",\n        \"campaignIdentifier\": \"CAMP-00001\",\n        \"pledgeMode\": 0,\n        \"autoApprovePledgeIfAmountLE\": 500,\n        \"autoApprovePledgeIfAnonymous\": false,\n        \"minPledgeAmount\": 100,\n        \"maxPledgeAmount\": 5000,\n        \"restrictedPledgeAmounts\": [],\n        \"autoDeactivateWhenGoalReached\": false,\n        \"matchSupported\": false\n    },\n    \"identifier\": \"CAMP-00001\",\n    \"createdTime\": \"2022-06-10T14:15:58.902841-05:00\",\n    \"lastUpdatedTime\": \"2022-06-10T14:15:58.902841-05:00\",\n    \"lastRefreshTime\": \"2022-06-10T14:39:22.723735-05:00\",\n    \"type\": 1,\n    \"name\": \"Masjed Expenses\",\n    \"currency\": \"USD\",\n    \"exchangeRate\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:6000/entities/campaigns/CAMP-00001/updates",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6000",
+					"path": [
+						"entities",
+						"campaigns",
+						"CAMP-00001",
+						"updates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Campaigns",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6000/entities/campaigns",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"entities",
+						"campaigns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:6001/users/USER-00001",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6001",
+					"path": [
+						"users",
+						"USER-00001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Donor User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:6001/users/2105551205",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6001",
+					"path": [
+						"users",
+						"2105551205"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Donor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:6001/users/verifications/2105551205/123456",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "6001",
+					"path": [
+						"users",
+						"verifications",
+						"2105551205",
+						"123456"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

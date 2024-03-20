@@ -1,0 +1,34 @@
+<div id="modal-backdrop" class="modal-backdrop fade show" style="display:block;"></div>
+<div id="modal" class="modal fade show" tabindex="-1" style="display:block;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ .Campaign.Name }}</h5>
+            </div>
+            <div class="modal-body">
+                <div id="pledge-response">
+                    {{ if .Message }}
+                    {{ template "pledge-response.html" . }}
+                    {{ end }}
+                </div>
+
+                <form hx-post="actions/pledges" hx-target="#pledge-response" hx-indicator="#spinner">
+                    <div class="mb-2">
+                        <input type="hidden" name="id" id="id" value="{{ .Campaign.Id }}"/>                        
+                        <label for="amount">AMOUNT</label>                        
+                        <input type="text" name="amount" id="amount" class="form-control"/>                        
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="spinner-border spinner-border-sm htmx-indicator" id="spinner" role="status" aria-hidden="true">
+                        </span>
+                        pledge
+                    </button>            
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">close</button>
+            </div>
+        </div>
+    </div>
+</div>

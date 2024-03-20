@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<htm>
+    <head>
+        {{ template "meta.html" . }}
+        <title>Home</title>
+    </head>
+    <script>
+        function closeModal() {
+            var container = document.getElementById("modals-here")
+            var backdrop = document.getElementById("modal-backdrop")
+            var modal = document.getElementById("modal")
+
+            modal.classList.remove("show")
+            backdrop.classList.remove("show")
+
+            setTimeout(function() {
+                container.removeChild(backdrop)
+                container.removeChild(modal)
+            }, 200)
+        }
+    </script>
+    <body>
+        <div class="container">
+        {{ if eq .Role "donor" }}
+        {{ template "navbar-donor.html" . }}
+        {{ else if eq .Role "manager" }}
+        {{ template "navbar-manager.html" . }}
+        {{ else if eq .Role "admin" }}
+        {{ template "navbar-admin.html" . }}
+        {{ else }}
+        {{ template "navbar-donor.html" . }}
+        {{ end }}
+            <div class="row mt-4 g-4">
+                <div class="col-12">
+                    {{template "campaigns-table.html" .}}
+                </div>
+            </div>
+        </div>
+        <div id="modals-here"></div>
+    </body>
+</htm>

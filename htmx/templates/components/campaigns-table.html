@@ -1,0 +1,41 @@
+<div class="card" id="campaigns-table">
+    <div class="card-header">
+        Campaigns
+    </div>
+    <div class="card-body">
+        <p class="small text-danger">{{ .Error }}</p>
+        <form hx-get="actions/load-more-campaigns?t=now" hx-target="#campaigns-list" hx-awap="beforeend" hx-indicator="#spinner">
+            <button type="submit" class="btn btn-primary">
+                <span class="spinner-border spinner-border-sm htmx-indicator" id="spinner" role="status" aria-hidden="true">
+                </span>
+                new <!-- ONLY for campaign managers or admins -->
+            </button>            
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>NAME</td>
+                    <td class="text-center">GOAL</td>
+                    <td class="text-center">CURRENCY</td>
+                    <td class="text-center">VIRTUAL</td>
+                    <td class="text-center">TOTAL</td>
+                    <td class="text-center">PLEDGES</td>
+                    <td class="text-center">DONORS</td>
+                    <td class="text-center">STARTED</td>
+                    <td class="text-center">ENDED</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody id="campaigns-list">
+                {{ template "campaigns-list.html" . }}
+            </tbody>
+        </table>
+        <form hx-get="actions/load-more-campaigns?t=now" hx-target="#campaigns-list" hx-awap="beforeend" hx-indicator="#spinner">
+            <button type="submit" class="btn btn-primary">
+                <span class="spinner-border spinner-border-sm htmx-indicator" id="spinner" role="status" aria-hidden="true">
+                </span>
+                load more
+            </button>            
+        </form>
+    </div>
+</div>

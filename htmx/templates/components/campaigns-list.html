@@ -1,0 +1,41 @@
+{{ range .Campaigns }}
+<tr>
+    <td>{{ .Name }}</td>
+    <td class="text-center">{{ .Goal }}</td>
+    <td class="text-center">{{ .Currency }}</td>
+    <td class="text-center">{{ if .Virtual }} YES {{ else }} NO {{end}}</td>
+    <td class="text-center">{{ .TotPledgeAmount }}</td>
+    <td class="text-center">{{ .Pledges }} </td>
+    <td class="text-center">{{ .Donors }} </td>
+    <td class="text-center">{{ if .StartTime }} YES {{ else }} NO {{ end }}</td>
+    <td class="text-center">{{ if .EndTime }} YES {{ else }} NO {{ end }}</td>
+    <td>
+        <button
+            hx-get="/campaign?id={{ .Id }}"
+            hx-target="#modals-here"
+            hx-trigger="click"
+            class="btn btn-success btn-sm"
+            _="on htmx:afterOnLoad wait 10ms then .show to #modal then add .show to #modal-backdrop">
+            watch
+        </button>
+        <!-- ONLY for campaign managers or admins -->
+        <button
+            hx-get="/campaign?id={{ .Id }}"
+            hx-target="#modals-here"
+            hx-trigger="click"
+            class="btn btn-success btn-sm"
+            _="on htmx:afterOnLoad wait 10ms then .show to #modal then add .show to #modal-backdrop">
+            edit
+        </button>
+        <!-- ONLY for campaign managers or admins -->
+        <button
+            hx-get="/pledge?id={{ .Id }}"
+            hx-target="#modals-here"
+            hx-trigger="click"
+            class="btn btn-success btn-sm"
+            _="on htmx:afterOnLoad wait 10ms then .show to #modal then add .show to #modal-backdrop">
+            pledge
+        </button>
+    </td>
+</tr>
+{{ end }}
