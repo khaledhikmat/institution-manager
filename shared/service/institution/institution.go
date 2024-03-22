@@ -6,7 +6,7 @@ import (
 )
 
 // In-memory institutions database
-var institutions []Institution = []Institution{
+var institutions = []Institution{
 	{
 		Id:      "100",
 		Name:    "Unrwa",

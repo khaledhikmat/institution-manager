@@ -6,7 +6,7 @@ import (
 )
 
 // In-memory campaigns database
-var campaigns []Campaign = []Campaign{
+var campaigns = []Campaign{
 	{
 		Id:            "100",
 		Name:          "Gaza Rebuild",
