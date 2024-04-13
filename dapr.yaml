@@ -1,0 +1,48 @@
+version: 1
+common: # optional section for variables shared across apps
+  resourcesPath: deploy/local/components # any dapr resources to be shared across apps
+  env:  # any environment variable shared across apps
+    DEBUG: true
+apps:
+  - appID: institution-manager-campaign
+    appDirPath: ./campaign/
+    appPort: 8080
+    daprHTTPPort: 3500
+    logLevel: debug
+    command: ["go","run", "main.go"]
+  - appID: institution-manager-notifier
+    appDirPath: ./notifier/
+    appPort: 8081
+    daprHTTPPort: 3501
+    logLevel: debug
+    command: ["go","run", "main.go"]
+  - appID: institution-manager-institution
+    appDirPath: ./institution/
+    appPort: 8082
+    daprHTTPPort: 3502
+    logLevel: debug
+    command: ["go","run", "main.go"]
+  - appID: institution-manager-externalizer
+    appDirPath: ./externalizer/
+    appPort: 8083
+    daprHTTPPort: 3503
+    logLevel: debug
+    command: ["go","run", "main.go"]
+  - appID: institution-manager-member
+    appDirPath: ./member/
+    appPort: 8084
+    daprHTTPPort: 3504
+    logLevel: debug
+    command: ["go","run", "main.go"]
+  - appID: institution-manager-membership
+    appDirPath: ./membership/
+    appPort: 8085
+    daprHTTPPort: 3505
+    logLevel: debug
+    command: ["go","run", "main.go"]
+  - appID: institution-manager-htmx
+    appDirPath: ./htmx/
+    appPort: 3000
+    daprHTTPPort: 3510
+    logLevel: debug
+    command: ["go","run", "main.go"]

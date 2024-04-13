@@ -14,9 +14,9 @@ spec:
   - name: enableTLS
     value: "false"
 scopes:
-  - campaign-manager-notifier
-  - campaign-manager-externalizer
-  - campaign-manager-institution
-  - campaign-manager-campaign
-  - campaign-manager-member
-  - campaign-manager-membership
+  - institution-manager-notifier
+  - institution-manager-externalizer
+  - institution-manager-institution
+  - institution-manager-campaign
+  - institution-manager-member
+  - institution-manager-membership

@@ -1,4 +1,4 @@
-module github.com/khaledhikmat/campaign-manager/notifier
+module github.com/khaledhikmat/institution-manager/notifier
 
 go 1.21.8
 

@@ -1,4 +1,4 @@
-module github.com/khaledhikmat/campaign-manager/institution
+module github.com/khaledhikmat/institution-manager/institution
 
 go 1.21.8
 

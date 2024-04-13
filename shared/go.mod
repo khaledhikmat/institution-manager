@@ -1,13 +1,16 @@
-module github.com/khaledhikmat/campaign-manager/shared
+module github.com/khaledhikmat/institution-manager/shared
 
 go 1.21.8
 
-require github.com/dapr/go-sdk v1.10.1
+require (
+	github.com/dapr/go-sdk v1.10.1
+	github.com/google/uuid v1.6.0
+	github.com/guregu/null v4.0.0+incompatible
+)
 
 require (
 	github.com/dapr/dapr v1.13.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	go.opentelemetry.io/otel v1.23.1 // indirect
 	go.opentelemetry.io/otel/trace v1.23.1 // indirect

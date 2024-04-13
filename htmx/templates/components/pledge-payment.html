@@ -1,0 +1,17 @@
+<div class="row mt-4 g-4">
+<div id="payment-response" class="col-12">
+    {{ if .Message }}
+    {{ template "payment-response.html" . }}
+    {{ end }}
+</div>
+<form hx-post="actions/pledgepayments" hx-target="#payment-response" hx-indicator="#spinner">
+    <input type="hidden" name="id" id="id" value="{{ .Reference }}"/>                        
+    <div class="mb-2">
+        Stripe components go here...
+    </div>
+    <button type="submit" class="btn btn-primary">
+        <span class="spinner-border spinner-border-sm htmx-indicator" id="spinner" role="status" aria-hidden="true">
+        </span>
+        pay
+    </button>            
+</form>

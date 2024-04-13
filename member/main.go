@@ -7,9 +7,9 @@ import (
 	"os"
 	"os/signal"
 
-	memberactor "github.com/khaledhikmat/campaign-manager/shared/actors/member"
-	"github.com/khaledhikmat/campaign-manager/shared/equates"
-	"github.com/khaledhikmat/campaign-manager/shared/service/member"
+	memberactor "github.com/khaledhikmat/institution-manager/shared/actors/member"
+	"github.com/khaledhikmat/institution-manager/shared/equates"
+	"github.com/khaledhikmat/institution-manager/shared/service/member"
 
 	"github.com/mitchellh/mapstructure"
 

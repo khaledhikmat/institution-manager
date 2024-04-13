@@ -7,8 +7,8 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/khaledhikmat/campaign-manager/shared/equates"
-	"github.com/khaledhikmat/campaign-manager/shared/service/campaign"
+	"github.com/khaledhikmat/institution-manager/shared/equates"
+	"github.com/khaledhikmat/institution-manager/shared/service/campaign"
 
 	"github.com/mitchellh/mapstructure"
 

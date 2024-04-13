@@ -6,8 +6,8 @@ import (
 
 	"github.com/dapr/go-sdk/actor"
 	dapr "github.com/dapr/go-sdk/client"
-	"github.com/khaledhikmat/campaign-manager/shared/service/member"
-	"github.com/khaledhikmat/campaign-manager/shared/service/membership"
+	"github.com/khaledhikmat/institution-manager/shared/service/member"
+	"github.com/khaledhikmat/institution-manager/shared/service/membership"
 )
 
 // Injected DAPR client and other services

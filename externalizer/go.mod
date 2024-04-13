@@ -1,4 +1,4 @@
-module github.com/khaledhikmat/campaign-manager/externalizer
+module github.com/khaledhikmat/institution-manager/externalizer
 
 go 1.21.8
 

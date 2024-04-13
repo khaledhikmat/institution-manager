@@ -5,16 +5,20 @@
             <div class="modal-header">
                 <h5 class="modal-title">{{ .Campaign.Name }}</h5>
             </div>
-            <div class="modal-body">
+            <div id="pledge-content" class="modal-body">
                 <div id="pledge-response">
                     {{ if .Message }}
                     {{ template "pledge-response.html" . }}
                     {{ end }}
                 </div>
 
+                {{ if eq .Campaign.Type "Unconfirmed" }}
                 <form hx-post="actions/pledges" hx-target="#pledge-response" hx-indicator="#spinner">
+                {{ else }}
+                <form hx-post="actions/pledges" hx-target="#pledge-content" hx-indicator="#spinner">
+                {{ end }}
                     <div class="mb-2">
-                        <input type="hidden" name="id" id="id" value="{{ .Campaign.Id }}"/>                        
+                        <input type="hidden" name="id" id="id" value="{{ .Campaign.ID }}"/>                        
                         <label for="amount">AMOUNT</label>                        
                         <input type="text" name="amount" id="amount" class="form-control"/>                        
                     </div>

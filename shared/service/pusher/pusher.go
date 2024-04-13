@@ -3,8 +3,8 @@ package pusher
 import (
 	"context"
 
-	"github.com/khaledhikmat/campaign-manager/shared/service/campaign"
-	"github.com/khaledhikmat/campaign-manager/shared/service/member"
+	"github.com/khaledhikmat/institution-manager/shared/service/campaign"
+	"github.com/khaledhikmat/institution-manager/shared/service/member"
 )
 
 type pusherService struct {

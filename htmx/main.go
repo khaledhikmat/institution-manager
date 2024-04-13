@@ -5,16 +5,16 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
-	"time"
 
 	dapr "github.com/dapr/go-sdk/client"
 
-	"github.com/khaledhikmat/campaign-manager/htmx/server"
-	campaignactor "github.com/khaledhikmat/campaign-manager/shared/actors/campaign"
-	memberactor "github.com/khaledhikmat/campaign-manager/shared/actors/member"
-	"github.com/khaledhikmat/campaign-manager/shared/service/campaign"
-	"github.com/khaledhikmat/campaign-manager/shared/service/member"
+	"github.com/khaledhikmat/institution-manager/htmx/flow"
+	"github.com/khaledhikmat/institution-manager/htmx/server"
+	"github.com/khaledhikmat/institution-manager/shared/service/campaign"
+	"github.com/khaledhikmat/institution-manager/shared/service/member"
 )
+
+var stage = 0
 
 func main() {
 	rootCanx := context.Background()
@@ -30,12 +30,29 @@ func main() {
 	}
 	defer c.Close()
 
-	// Create service layer and inject into server
+	// Create service layer
+	campaignService := campaign.NewService(canxCtx)
+	defer campaignService.Finalize()
+	memberService := member.NewService(canxCtx)
+	defer memberService.Finalize()
+
+	// Inject into workflow
+	flow.DaprClient = c
+	flow.CampaignService = campaignService
+	flow.MemberService = memberService
+
+	// Start workflow engine
+	err = flow.Start()
+	if err != nil {
+		fmt.Println("Failed to start dapr workflow engine", err)
+		return
+	}
+	defer flow.Shutdown()
+
+	// Inject into server
 	server.DaprClient = c
-	server.CampaignService = campaign.NewService(canxCtx)
-	defer server.CampaignService.Finalize()
-	server.MemberService = member.NewService(canxCtx)
-	defer server.MemberService.Finalize()
+	server.CampaignService = campaignService
+	server.MemberService = memberService
 
 	port := "3000"
 	args := os.Args[1:]
@@ -62,50 +79,49 @@ func main() {
 		case <-canxCtx.Done():
 			cancel()
 			return
-		case <-time.After(20 * time.Second):
-			// Do something every 10 seconds
-			fmt.Println("Timeout")
+			// case <-time.After(20 * time.Second):
+			// 	// Do something every 10 seconds
+			// 	fmt.Println("Timeout")
 
-			fmt.Println("Creating a ficticious pledge....")
-			p := member.MemberPledge{}
-			p.CampaignID = "100"
-			p.MemberID = "100"
-			p.Time = time.Now()
-			p.Amount = 100
+			// 	fmt.Println("Creating a ficticious pledge....")
+			// 	p := member.NewMemberPledge()
+			// 	p.CampaignID = "100"
+			// 	p.MemberID = "100"
+			// 	p.Time = time.Now()
+			// 	p.Amount = 100
 
-			// Resolve actor by campaign id
-			campaignActorProxy := campaignactor.NewCampaignActor(p.CampaignID)
-			c.ImplActorClientStub(campaignActorProxy)
+			// 	// Resolve actor by campaign id
+			// 	campaignActorProxy := campaignactor.NewCampaignActor(p.CampaignID)
+			// 	c.ImplActorClientStub(campaignActorProxy)
 
-			// Call actor methods
-			err = campaignActorProxy.Pledge(canxCtx, p)
-			if err != nil {
-				fmt.Printf("Error calling the campaign actor: %v", err)
-			}
+			// 	// Call actor methods
+			// 	err = campaignActorProxy.Pledge(canxCtx, p)
+			// 	if err != nil {
+			// 		fmt.Printf("Error calling the campaign actor: %v", err)
+			// 	}
 
-			fmt.Println("Creating a ficticious member transaction....")
-			m := member.MemberTransaction{}
-			m.MemberID = "100"
-			m.MembershipID = "100"
-			m.Tier = "Black"
-			m.Type = "Purchase"
-			m.StartDate = time.Now()
-			m.ExpDate = time.Now()
-			m.Amount = 250
-			m.ExgRate = 1
-			m.PaymentMethod = "Visa"
-			m.PaymentConfirmation = "849384309483"
+			// 	fmt.Println("Creating a ficticious member transaction....")
+			// 	m := member.MemberTransaction{}
+			// 	m.MemberID = "100"
+			// 	m.MembershipID = "100"
+			// 	m.Tier = "Black"
+			// 	m.Type = "Purchase"
+			// 	m.StartDate = time.Now()
+			// 	m.ExpDate = time.Now()
+			// 	m.Amount = 250
+			// 	m.ExgRate = 1
+			// 	m.PaymentMethod = "Visa"
+			// 	m.PaymentConfirmation = "849384309483"
 
-			// Resolve actor by campaign id
-			memberActorProxy := memberactor.NewMemberActor(m.MemberID)
-			c.ImplActorClientStub(memberActorProxy)
+			// 	// Resolve actor by campaign id
+			// 	memberActorProxy := memberactor.NewMemberActor(m.MemberID)
+			// 	c.ImplActorClientStub(memberActorProxy)
 
-			// Call actor methods
-			err = memberActorProxy.Transact(canxCtx, m)
-			if err != nil {
-				fmt.Printf("Error calling the member actor: %v", err)
-			}
-
+			// 	// Call actor methods
+			// 	err = memberActorProxy.Transact(canxCtx, m)
+			// 	if err != nil {
+			// 		fmt.Printf("Error calling the member actor: %v", err)
+			// 	}
 		}
 	}
 }

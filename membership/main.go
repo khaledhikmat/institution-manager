@@ -7,10 +7,10 @@ import (
 	"os"
 	"os/signal"
 
-	membershipactor "github.com/khaledhikmat/campaign-manager/shared/actors/membership"
-	"github.com/khaledhikmat/campaign-manager/shared/equates"
-	"github.com/khaledhikmat/campaign-manager/shared/service/member"
-	"github.com/khaledhikmat/campaign-manager/shared/service/membership"
+	membershipactor "github.com/khaledhikmat/institution-manager/shared/actors/membership"
+	"github.com/khaledhikmat/institution-manager/shared/equates"
+	"github.com/khaledhikmat/institution-manager/shared/service/member"
+	"github.com/khaledhikmat/institution-manager/shared/service/membership"
 
 	"github.com/mitchellh/mapstructure"
 
@@ -83,7 +83,7 @@ func transactionMembershipHandler(ctx context.Context, e *common.TopicEvent) (re
 
 		fmt.Printf("Received a member transaction\n")
 
-		// Resolve actor by campaign institution
+		// Resolve actor by membership ID
 		memActorProxy := membershipactor.NewMembershipActor(evt.MembershipID)
 		daprclient.ImplActorClientStub(memActorProxy)
 

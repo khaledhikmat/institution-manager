@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/khaledhikmat/campaign-manager/shared/service/institution"
+	"github.com/khaledhikmat/institution-manager/shared/service/institution"
 )
 
 // In-memory members database
 var members []Member = []Member{
 	{
-		Id:         "100",
+		ID:         "100",
 		Role:       "Admin",
 		Type:       "Donor",
 		ExternalID: "1000-9993-6767-2387-9000",
@@ -19,7 +19,7 @@ var members []Member = []Member{
 		Phone:      "210-555-1212",
 	},
 	{
-		Id:         "200",
+		ID:         "200",
 		Role:       "Manager",
 		Type:       "Donor",
 		ExternalID: "1000-9993-6767-2387-8000",
@@ -60,7 +60,7 @@ func (c *memberService) GetMembers(search string, opts ...MemberOpt) ([]Member, 
 
 func (c *memberService) GetMember(id string) (Member, error) {
 	for _, mem := range members {
-		if mem.Id == id {
+		if mem.ID == id {
 			return mem, nil
 		}
 	}

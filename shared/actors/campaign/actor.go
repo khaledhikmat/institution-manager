@@ -7,9 +7,9 @@ import (
 
 	"github.com/dapr/go-sdk/actor"
 	dapr "github.com/dapr/go-sdk/client"
-	"github.com/khaledhikmat/campaign-manager/shared/equates"
-	"github.com/khaledhikmat/campaign-manager/shared/service/campaign"
-	"github.com/khaledhikmat/campaign-manager/shared/service/member"
+	"github.com/khaledhikmat/institution-manager/shared/equates"
+	"github.com/khaledhikmat/institution-manager/shared/service/campaign"
+	"github.com/khaledhikmat/institution-manager/shared/service/member"
 )
 
 // Injected DAPR client and other services
@@ -65,7 +65,7 @@ func (a *CampaignActor) Update(ctx context.Context, c campaign.Campaign) error {
 	a.mainState.Name = c.Name
 	a.mainState.Description = c.Description
 	a.mainState.Virtual = c.Virtual
-	a.mainState.ImageUrl = c.ImageUrl
+	a.mainState.ImageURL = c.ImageURL
 	a.mainState.Goal = c.Goal
 	a.mainState.Currency = c.Currency
 	a.mainState.Duration = c.Duration
@@ -130,5 +130,17 @@ func (a *CampaignActor) Pledge(ctx context.Context, evt member.MemberPledge) err
 		return err
 	}
 
+	return nil
+}
+
+func (a *CampaignActor) Confirm(ctx context.Context, evt member.MemberPledge) error {
+	fmt.Printf("CampaignActor Confirm - CAMPAIGN ID: %s - MEMBER ID: %s - AMOUNT: %d\n", evt.CampaignID, evt.MemberID, evt.Amount)
+	// TODO:
+	return nil
+}
+
+func (a *CampaignActor) Decline(ctx context.Context, evt member.MemberPledge) error {
+	fmt.Printf("CampaignActor Decline - CAMPAIGN ID: %s - MEMBER ID: %s - AMOUNT: %d\n", evt.CampaignID, evt.MemberID, evt.Amount)
+	// TODO:
 	return nil
 }

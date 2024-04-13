@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/khaledhikmat/campaign-manager/shared/service/member"
+	"github.com/khaledhikmat/institution-manager/shared/service/member"
 )
 
 // In-memory memberships database

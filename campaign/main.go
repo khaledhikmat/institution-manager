@@ -7,10 +7,10 @@ import (
 	"os"
 	"os/signal"
 
-	campaignactor "github.com/khaledhikmat/campaign-manager/shared/actors/campaign"
+	campaignactor "github.com/khaledhikmat/institution-manager/shared/actors/campaign"
 
-	"github.com/khaledhikmat/campaign-manager/shared/service/campaign"
-	"github.com/khaledhikmat/campaign-manager/shared/service/member"
+	"github.com/khaledhikmat/institution-manager/shared/service/campaign"
+	"github.com/khaledhikmat/institution-manager/shared/service/member"
 
 	dapr "github.com/dapr/go-sdk/client"
 	daprd "github.com/dapr/go-sdk/service/http"

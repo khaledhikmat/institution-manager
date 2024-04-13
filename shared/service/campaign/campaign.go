@@ -8,34 +8,39 @@ import (
 // In-memory campaigns database
 var campaigns = []Campaign{
 	{
-		Id:            "100",
-		Name:          "Gaza Rebuild",
+		ID:            "100",
+		Type:          ConfirmedCampaign,
+		PaymentType:   PrePledgePaymentCampaign,
+		Name:          "CPRE Gaza Rebuild",
 		Description:   "This is an initial contribution from the good people of the earth. But we will make the zionists cough up the rest.",
 		InstitutionID: "100",
 		Virtual:       true,
-		ImageUrl:      "",
+		ImageURL:      "",
 		Goal:          10000000,
 		Currency:      "USD",
 		Duration:      1000,
 	},
 	{
-		Id:            "200",
-		Name:          "Khan Yunis Rebuild",
+		ID:            "200",
+		Type:          ConfirmedCampaign,
+		PaymentType:   PostPledgePaymentCampaign,
+		Name:          "CPOST Khan Yunis Rebuild",
 		Description:   "This is an initial contribution from the good people of the earth. But we will make the zionists cough up the rest.",
 		InstitutionID: "100",
 		Virtual:       true,
-		ImageUrl:      "",
+		ImageURL:      "",
 		Goal:          10000,
 		Currency:      "USD",
 		Duration:      1000,
 	},
 	{
-		Id:            "300",
-		Name:          "Rafah Rebuild",
+		ID:            "300",
+		Type:          UnconfirmedCampaign,
+		Name:          "U Rafah Rebuild",
 		Description:   "This is an initial contribution from the good people of the earth. But we will make the zionists cough up the rest.",
 		InstitutionID: "100",
 		Virtual:       true,
-		ImageUrl:      "",
+		ImageURL:      "",
 		Goal:          50000,
 		Currency:      "USD",
 		Duration:      1000,
@@ -52,7 +57,7 @@ func NewService(canxCtx context.Context) IService {
 	}
 }
 
-func (c *campaignService) GetCampaigns(search string, opts ...CampaignOpt) ([]Campaign, error) {
+func (c *campaignService) GetCampaigns(search string, opts ...Opt) ([]Campaign, error) {
 
 	filter := Campaign{}
 	for _, applyOpt := range opts {
@@ -64,7 +69,7 @@ func (c *campaignService) GetCampaigns(search string, opts ...CampaignOpt) ([]Ca
 
 func (c *campaignService) GetCampaign(id string) (Campaign, error) {
 	for _, cmp := range campaigns {
-		if cmp.Id == id {
+		if cmp.ID == id {
 			return cmp, nil
 		}
 	}

@@ -3,8 +3,8 @@ package institutionactor
 import (
 	"context"
 
-	"github.com/khaledhikmat/campaign-manager/shared/service/institution"
-	"github.com/khaledhikmat/campaign-manager/shared/service/member"
+	"github.com/khaledhikmat/institution-manager/shared/service/institution"
+	"github.com/khaledhikmat/institution-manager/shared/service/member"
 )
 
 type InstitutionActorStub struct {

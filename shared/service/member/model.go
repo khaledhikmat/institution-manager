@@ -3,7 +3,10 @@ package member
 import (
 	"time"
 
-	"github.com/khaledhikmat/campaign-manager/shared/service/institution"
+	"github.com/google/uuid"
+	"github.com/guregu/null"
+
+	"github.com/khaledhikmat/institution-manager/shared/service/institution"
 )
 
 type MemberOpt func(m Member)
@@ -21,17 +24,17 @@ func WithRole(r string) MemberOpt {
 }
 
 type MemberRole struct {
-	Id   string `json:"id"`
+	ID   string `json:"id"`
 	Name string `json:"name"`
 }
 
 type MemberType struct {
-	Id   string `json:"id"`
+	ID   string `json:"id"`
 	Name string `json:"name"`
 }
 
 type Member struct {
-	Id            string                    `json:"id"`
+	ID            string                    `json:"id"`
 	Role          string                    `json:"role"`
 	Type          string                    `json:"type"`
 	Parent        string                    `json:"parent"`
@@ -50,7 +53,7 @@ type Member struct {
 }
 
 type MemberMembership struct {
-	Id           string    `json:"id"`
+	ID           string    `json:"id"`
 	MemberID     string    `json:"memberId"`
 	MembershipID string    `json:"membershipId"`
 	Tier         string    `json:"tier"`
@@ -62,7 +65,7 @@ type MemberMembership struct {
 }
 
 type MemberTransaction struct {
-	Id                  string    `json:"id"`
+	ID                  string    `json:"id"`
 	MemberID            string    `json:"memberId"`
 	MembershipID        string    `json:"membershipId"`
 	Tier                string    `json:"tier"`
@@ -76,10 +79,19 @@ type MemberTransaction struct {
 }
 
 type MemberPledge struct {
-	Id         string    `json:"id"`
-	MemberID   string    `json:"memberId"`
-	CampaignID string    `json:"campaignId"`
-	Time       time.Time `json:"time"`
-	Amount     int64     `json:"amount"`
-	ExgRate    float64   `json:"exgRate"`
+	ID            string    `json:"id"`
+	MemberID      string    `json:"memberId"`
+	CampaignID    string    `json:"campaignId"`
+	Time          time.Time `json:"time"`
+	Amount        int64     `json:"amount"`
+	ExgRate       float64   `json:"exgRate"`
+	ConfirmedTime null.Time `json:"confirmedTime"`
+	PersistedTime null.Time `json:"persistedTime"`
+}
+
+func NewMemberPledge() MemberPledge {
+	p := MemberPledge{}
+	p.ID = uuid.New().String() // Generate a unique ID
+
+	return p
 }

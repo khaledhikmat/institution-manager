@@ -1,7 +1,7 @@
 <div class="row mt-4 g-4">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">campaigns manager</a>
+            <a class="navbar-brand" href="/">institution manager</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
                 <span class="nvbar-toggle-icon"></span>
             </button>
@@ -9,16 +9,16 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         {{ if or (eq .Tab "Home") (eq .Tab "Campaigns")}}
-                        <a class="nav-link active" aria-current="page" href="/">home</a>
+                        <a class="nav-link active" aria-current="page" href="/">campaigns</a>
                         {{ else }}
-                        <a class="nav-link" aria-current="page" href="/">home</a>
+                        <a class="nav-link" aria-current="page" href="/">campaigns</a>
                         {{ end }}
                     </li>
                     <li class="nav-item">
-                        {{ if eq .Tab "Donors" }}
-                        <a class="nav-link active" aria-current="page" href="/donors">donors</a>
+                        {{ if eq .Tab "Institutions"}}
+                        <a class="nav-link active" aria-current="page" href="/institutions">institutions</a>
                         {{ else }}
-                        <a class="nav-link" aria-current="page" href="/donors">donors</a>
+                        <a class="nav-link" aria-current="page" href="/institutions">institutions</a>
                         {{ end }}
                     </li>
                 </ul>

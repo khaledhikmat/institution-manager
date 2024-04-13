@@ -1,7 +1,7 @@
 ## Setup
 
 ```bash
-go mod init github.com/khaledhikmat/campaign-manager/campaign
+go mod init github.com/khaledhikmat/institution-manager/campaign
 go get -u github.com/dapr/go-sdk
 ```
 

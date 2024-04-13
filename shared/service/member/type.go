@@ -1,7 +1,7 @@
 package member
 
 import (
-	"github.com/khaledhikmat/campaign-manager/shared/service/institution"
+	"github.com/khaledhikmat/institution-manager/shared/service/institution"
 )
 
 type IService interface {

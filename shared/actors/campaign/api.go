@@ -3,8 +3,8 @@ package campaignactor
 import (
 	"context"
 
-	"github.com/khaledhikmat/campaign-manager/shared/service/campaign"
-	"github.com/khaledhikmat/campaign-manager/shared/service/member"
+	"github.com/khaledhikmat/institution-manager/shared/service/campaign"
+	"github.com/khaledhikmat/institution-manager/shared/service/member"
 )
 
 type CampaignActorStub struct {
@@ -13,6 +13,8 @@ type CampaignActorStub struct {
 	Pledges func(context.Context) ([]member.MemberPledge, error)
 	Update  func(context.Context, campaign.Campaign) error
 	Pledge  func(context.Context, member.MemberPledge) error
+	Confirm func(context.Context, member.MemberPledge) error
+	Decline func(context.Context, member.MemberPledge) error
 }
 
 func NewCampaignActor(id string) *CampaignActorStub {

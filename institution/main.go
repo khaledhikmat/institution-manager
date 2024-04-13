@@ -7,11 +7,11 @@ import (
 	"os"
 	"os/signal"
 
-	institutionactor "github.com/khaledhikmat/campaign-manager/shared/actors/institution"
-	"github.com/khaledhikmat/campaign-manager/shared/equates"
-	"github.com/khaledhikmat/campaign-manager/shared/service/campaign"
-	"github.com/khaledhikmat/campaign-manager/shared/service/institution"
-	"github.com/khaledhikmat/campaign-manager/shared/service/member"
+	institutionactor "github.com/khaledhikmat/institution-manager/shared/actors/institution"
+	"github.com/khaledhikmat/institution-manager/shared/equates"
+	"github.com/khaledhikmat/institution-manager/shared/service/campaign"
+	"github.com/khaledhikmat/institution-manager/shared/service/institution"
+	"github.com/khaledhikmat/institution-manager/shared/service/member"
 
 	"github.com/mitchellh/mapstructure"
 

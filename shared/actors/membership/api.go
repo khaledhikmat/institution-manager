@@ -3,8 +3,8 @@ package membershipactor
 import (
 	"context"
 
-	"github.com/khaledhikmat/campaign-manager/shared/service/member"
-	"github.com/khaledhikmat/campaign-manager/shared/service/membership"
+	"github.com/khaledhikmat/institution-manager/shared/service/member"
+	"github.com/khaledhikmat/institution-manager/shared/service/membership"
 )
 
 type MembershipActorStub struct {
