@@ -14,8 +14,6 @@ import (
 	"github.com/khaledhikmat/institution-manager/shared/service/member"
 )
 
-var stage = 0
-
 func main() {
 	rootCanx := context.Background()
 	canxCtx, cancel := signal.NotifyContext(rootCanx, os.Interrupt)
@@ -79,49 +77,6 @@ func main() {
 		case <-canxCtx.Done():
 			cancel()
 			return
-			// case <-time.After(20 * time.Second):
-			// 	// Do something every 10 seconds
-			// 	fmt.Println("Timeout")
-
-			// 	fmt.Println("Creating a ficticious pledge....")
-			// 	p := member.NewMemberPledge()
-			// 	p.CampaignID = "100"
-			// 	p.MemberID = "100"
-			// 	p.Time = time.Now()
-			// 	p.Amount = 100
-
-			// 	// Resolve actor by campaign id
-			// 	campaignActorProxy := campaignactor.NewCampaignActor(p.CampaignID)
-			// 	c.ImplActorClientStub(campaignActorProxy)
-
-			// 	// Call actor methods
-			// 	err = campaignActorProxy.Pledge(canxCtx, p)
-			// 	if err != nil {
-			// 		fmt.Printf("Error calling the campaign actor: %v", err)
-			// 	}
-
-			// 	fmt.Println("Creating a ficticious member transaction....")
-			// 	m := member.MemberTransaction{}
-			// 	m.MemberID = "100"
-			// 	m.MembershipID = "100"
-			// 	m.Tier = "Black"
-			// 	m.Type = "Purchase"
-			// 	m.StartDate = time.Now()
-			// 	m.ExpDate = time.Now()
-			// 	m.Amount = 250
-			// 	m.ExgRate = 1
-			// 	m.PaymentMethod = "Visa"
-			// 	m.PaymentConfirmation = "849384309483"
-
-			// 	// Resolve actor by campaign id
-			// 	memberActorProxy := memberactor.NewMemberActor(m.MemberID)
-			// 	c.ImplActorClientStub(memberActorProxy)
-
-			// 	// Call actor methods
-			// 	err = memberActorProxy.Transact(canxCtx, m)
-			// 	if err != nil {
-			// 		fmt.Printf("Error calling the member actor: %v", err)
-			// 	}
 		}
 	}
 }

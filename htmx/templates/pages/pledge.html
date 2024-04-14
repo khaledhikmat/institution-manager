@@ -19,7 +19,7 @@
                 {{ end }}
                     <div class="mb-2">
                         <input type="hidden" name="id" id="id" value="{{ .Campaign.ID }}"/>                        
-                        <label for="amount">AMOUNT</label>                        
+                        <label for="amount">AMOUNT in {{ .Campaign.Currency }}</label>                        
                         <input type="text" name="amount" id="amount" class="form-control"/>                        
                     </div>
                     <button type="submit" class="btn btn-primary">

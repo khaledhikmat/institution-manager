@@ -20,13 +20,13 @@ build: clean_dist clean_build test
 	GOOS='linux' GOARCH='amd64' GO111MODULE='on' go build -o "${BUILD_DIR}/institution-manager-notifier" ./notifier/main.go
 
 dockerize: clean_dist clean_build test build
-	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-campaign:latest . -f ./campaign/Dockerfile
-	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-externalizer:latest . -f ./externalizer/Dockerfile
-	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-htmx:latest . -f ./htmx/Dockerfile
-	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-institution:latest . -f ./institution/Dockerfile
-	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-member:latest . -f ./member/Dockerfile
-	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-membership:latest . -f ./membership/Dockerfile
-	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-notifier:latest . -f ./notifier/Dockerfile
+	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-campaign:latest ./campaign -f ./campaign/Dockerfile
+	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-externalizer:latest ..externalizer -f ./externalizer/Dockerfile
+	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-htmx:latest ./htmx -f ./htmx/Dockerfile
+	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-institution:latest ./institution -f ./institution/Dockerfile
+	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-member:latest ./member -f ./member/Dockerfile
+	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-membership:latest ./membership -f ./membership/Dockerfile
+	docker buildx build --platform linux/amd64 -t khaledhikmat/institution-manager-notifier:latest ./notifier -f ./notifier/Dockerfile
 
 start: clean_dist clean_build test build
 	dapr run -f .
