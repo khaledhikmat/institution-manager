@@ -7,8 +7,6 @@
     <td class="text-center">{{ .TotPledgeAmount }}</td>
     <td class="text-center">{{ .Pledges }} </td>
     <td class="text-center">{{ .Donors }} </td>
-    <td class="text-center">{{ if .StartTime }} YES {{ else }} NO {{ end }}</td>
-    <td class="text-center">{{ if .EndTime }} YES {{ else }} NO {{ end }}</td>
     <td>
         <button
             hx-get="/campaign?id={{ .ID }}"

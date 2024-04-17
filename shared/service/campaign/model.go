@@ -2,7 +2,6 @@ package campaign
 
 import (
 	"encoding/json"
-	"time"
 )
 
 type Opt func(c Campaign)
@@ -93,12 +92,12 @@ type Campaign struct {
 	TotPledgeAmountUSD int64       `json:"totPledgeAmountUSD"`
 	Pledges            int64       `json:"pledges"`
 	Donors             int64       `json:"donors"`
-	StartTime          time.Time   `json:"startTime"`
-	EndTime            time.Time   `json:"endTime"`
+	// StartTime          null.Time   `json:"startTime"`
+	// EndTime            null.Time   `json:"endTime"`
 }
 
 func (c Campaign) GetBehavior() Behavior {
-	var b Behavior = DefaultCampaignBehavior()
+	var b = DefaultCampaignBehavior()
 	if c.Behavior != "" {
 		_ = json.Unmarshal([]byte(c.Behavior), &b)
 	}

@@ -16,6 +16,7 @@ import (
 
 	"github.com/khaledhikmat/institution-manager/shared/service/campaign"
 	"github.com/khaledhikmat/institution-manager/shared/service/member"
+	"github.com/khaledhikmat/institution-manager/shared/service/realtimer"
 )
 
 const (
@@ -26,6 +27,7 @@ const (
 var DaprClient dapr.Client
 var CampaignService campaign.IService
 var MemberService member.IService
+var RealtimeService realtimer.IService
 
 type ginWithContext func(ctx context.Context) error
 
@@ -47,12 +49,13 @@ func Run(canxCtx context.Context, port string) error {
 	r.LoadHTMLGlob("./templates/**/*")
 	r.Static("/static", "./static")
 
-	// Setup Stripe payment gateway
+	// Load env vars
 	err := godotenv.Load()
 	if err != nil {
 		return err
 	}
 
+	// Setup Stripe payment gateway
 	stripe.Key = os.Getenv("STRIPE_SECRET_KEY")
 
 	// Provide app info:
@@ -63,9 +66,14 @@ func Run(canxCtx context.Context, port string) error {
 	})
 
 	//=========================
-	// Setup Stripe ROUTES
+	// Setup Payment ROUTES
 	//=========================
-	stripeRoutes(canxCtx, r)
+	paymentRoutes(canxCtx, r)
+
+	//=========================
+	// Setup Realtime ROUTES
+	//=========================
+	realtimeRoutes(canxCtx, r)
 
 	//=========================
 	// Setup Home ROUTES
@@ -82,7 +90,7 @@ func Run(canxCtx context.Context, port string) error {
 	//=========================
 	pledgeRoutes(canxCtx, r)
 
-	f := cancellableGin(r, port)
+	f := cancellableGin(canxCtx, r, port)
 	return f(canxCtx)
 }
 
@@ -98,7 +106,7 @@ func getMemberID(_ *gin.Context) string {
 	return "100"
 }
 
-func cancellableGin(r *gin.Engine, port string) ginWithContext {
+func cancellableGin(canxCtx context.Context, r *gin.Engine, port string) ginWithContext {
 	return func(ctx context.Context) error {
 		go func() {
 			r.Run(":" + port)

@@ -7,16 +7,24 @@ import (
 	"os/signal"
 
 	dapr "github.com/dapr/go-sdk/client"
+	"github.com/joho/godotenv"
 
 	"github.com/khaledhikmat/institution-manager/htmx/flow"
 	"github.com/khaledhikmat/institution-manager/htmx/server"
 	"github.com/khaledhikmat/institution-manager/shared/service/campaign"
 	"github.com/khaledhikmat/institution-manager/shared/service/member"
+	"github.com/khaledhikmat/institution-manager/shared/service/realtimer"
 )
 
 func main() {
 	rootCanx := context.Background()
 	canxCtx, cancel := signal.NotifyContext(rootCanx, os.Interrupt)
+
+	// Load env vars
+	err := godotenv.Load()
+	if err != nil {
+		panic(err)
+	}
 
 	// Create a DAPR client
 	// Must be a global client since it is singleton
@@ -33,6 +41,12 @@ func main() {
 	defer campaignService.Finalize()
 	memberService := member.NewService(canxCtx)
 	defer memberService.Finalize()
+	realtimeService, err := realtimer.NewAblyService(canxCtx, os.Getenv("ABLY_API_KEY"), "institution-manager.htmx")
+	if err != nil {
+		fmt.Println("Failed to start ably client", err)
+		return
+	}
+	defer realtimeService.Finalize()
 
 	// Inject into workflow
 	flow.DaprClient = c
@@ -51,6 +65,7 @@ func main() {
 	server.DaprClient = c
 	server.CampaignService = campaignService
 	server.MemberService = memberService
+	server.RealtimeService = realtimeService
 
 	port := "3000"
 	args := os.Args[1:]

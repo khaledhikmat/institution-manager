@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	workflowRefId = "workflow_ref_id"
+	workflowRefID = "workflow_ref_id"
 )
 
 // This payment payload must come from JavaScript and comply with this structure...
@@ -28,7 +28,7 @@ type payment struct {
 	Currency string `json:"currency"`
 }
 
-func stripeRoutes(canxCtx context.Context, r *gin.Engine) {
+func paymentRoutes(canxCtx context.Context, r *gin.Engine) {
 	//=========================
 	// API
 	//=========================
@@ -76,7 +76,7 @@ func stripeRoutes(canxCtx context.Context, r *gin.Engine) {
 			if metadata != nil {
 				v, ok := metadata.(map[string]interface{})
 				if ok {
-					workflowID = fmt.Sprintf("%v", v[workflowRefId])
+					workflowID = fmt.Sprintf("%v", v[workflowRefID])
 				}
 			}
 
@@ -132,7 +132,7 @@ func stripeRoutes(canxCtx context.Context, r *gin.Engine) {
 				Enabled: stripe.Bool(true),
 			},
 		}
-		params.AddMetadata(workflowRefId, p.RefID)
+		params.AddMetadata(workflowRefID, p.RefID)
 
 		pi, err := paymentintent.New(params)
 		if err != nil {

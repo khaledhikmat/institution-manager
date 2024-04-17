@@ -13,23 +13,23 @@
                 <table class="table table-striped">
                     <tr>
                         <td>GOAL</td>
-                        <td>{{ .Campaign.Goal }} {{ .Campaign.Currency }}</td>
+                        <td><span id="cGoal" class="badge bg-primary">{{ .Campaign.Goal }} {{ .Campaign.Currency }}</span></td>
                     </tr>
                     <tr>
                         <td>AWAY FROM GOAL</td>
-                        <td>{{ .Campaign.AwayFromGoal }} {{ .Campaign.Currency }}</td>
+                        <td><span id="cAwayGoal" class="badge bg-primary">{{ .Campaign.AwayFromGoal }} {{ .Campaign.Currency }}</span></td>
                     </tr>
                     <tr>
                         <td>PLEDGES</td>
-                        <td>{{ .Campaign.Pledges }}</td>
+                        <td><span id="cPledges" class="badge bg-primary">{{ .Campaign.Pledges }}</span></td>
                     </tr>
                     <tr>
                         <td>DONORS</td>
-                        <td>{{ .Campaign.Donors }}</td>
+                        <td><span id="cDonors" class="badge bg-primary">{{ .Campaign.Donors }}</span></td>
                     </tr>
                     <tr>
                         <td>TOTAL</td>
-                        <td>{{ .Campaign.TotPledgeAmount }}</td>
+                        <td><span id="cTotal" class="badge bg-primary">{{ .Campaign.TotPledgeAmount }}</span></td>
                     </tr>
                     <tr>
                         <td>REMAINING TIME</td>
@@ -44,3 +44,45 @@
         </div>
     </div>
 </div>
+<script>
+    (async () => {
+    console.log(`campaign.html - onLoad ${Date.now()}`)
+    let connected = false;
+    const realtime = new Ably.Realtime({ 
+        authUrl: "/realtime-auth",
+        authMethod: "POST"
+    });
+
+    // Get reference to elements that need to be updated
+    const goal = document.getElementById("cGoal")
+    const awayGoal = document.getElementById("cAwayGoal")
+    const pledges = document.getElementById("cPledges")
+    const donors = document.getElementById("cDonors")
+    const total = document.getElementById("cTotal")
+
+    // TODO: Watch realtime events to maintain `connected`
+    let channelName = "campaign-" + "{{ .Campaign.ID }}";
+    console.log(channelName)
+    const channel = realtime.channels.get(channelName);
+    connected = true;
+    await  channel.subscribe((message) => {
+        console.log('Received: ' + message.data)
+        console.log('Received campaign name: ' + message.data.name)
+        console.log('Received campaign.pledges: ' + message.data.pledges)
+        goal.innerText = `${message.data.goal} ${message.data.currency}`;
+        awayGoal.innerText = `${message.data.awayFromGoal} ${message.data.currency}`;
+        pledges.innerText = message.data.pledges;
+        donors.innerText = message.data.donors;
+        total.innerText = `${message.data.totPledgeAmount} ${message.data.currency}`;
+    });
+
+    // TODO: Would like to disconnect the realtime client
+    // https://dev.to/chromiumdev/sure-you-want-to-leavebrowser-beforeunload-event-4eg5 
+    window.addEventListener('beforeunload', (event) => {
+        if (connected && realtime) {
+            realtime.close()
+        } 
+        //event.returnValue = `Are you sure you want to leave?`;
+    });
+    })()
+</script>

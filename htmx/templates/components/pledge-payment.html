@@ -1,54 +1,3 @@
-<script>
-htmx.onLoad(async () => {
-    // Fetch the publishable key and init stripe
-    const {publishableKey} = await fetch("/stripe-config").then(r => r.json())
-    const stripe = Stripe(publishableKey)
-
-    // Fetch the payment intent client secret
-    const {clientSecret} = await fetch("/stripe-payment-intent", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON .stringify({
-            refId: document.getElementById("refid").value,
-            amount: document.getElementById("amt").value,
-            currency: document.getElementById("currency").value
-        }) 
-    }).then(r => r.json())
-
-    // Mount the elements
-    const elements = stripe.elements({clientSecret})
-    const paymentElement = elements.create('payment')
-    paymentElement.mount('#payment-element')
-
-    const form = document.getElementById('payment-form')
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const {error, paymentIntent} = await stripe.confirmPayment({
-            elements,
-            confirmParams: {
-                return_url: window.location.href.split('?')[0] + 'pledgepaymentresponse'
-            },
-            redirect: "if_required" // To stop redirects
-        })
-
-        // TODO: This is not working....I would like to cancel the submission if error
-        const messages = document.getElementById('error-messages')
-        if (error) {
-            messages.innerText = error.message;
-            return false // To cancel the form action
-        }
-
-        // TODO: This is not working....I would like to fill in a status prior to submission
-        // const form = document.getElementById('payment-form')
-        // const status = form.elements.status
-        // status.innerText = paymentIntent && paymentIntent.status ? paymentIntent.status : "N/A";
-        // status.value = paymentIntent && paymentIntent.status ? paymentIntent.status : "N/A";
-    })
-})
-</script>
-
 <div class="row mt-4 g-4">
 <div id="payment-response" class="col-12">
     {{ if .Message }}
@@ -68,3 +17,56 @@ htmx.onLoad(async () => {
         pay
     </button>            
 </form>
+
+<script>
+    (async () => {
+        console.log(`pledge-payment.html - onLoad ${Date.now()}`)
+        // Fetch the publishable key and init stripe
+        const {publishableKey} = await fetch("/stripe-config").then(r => r.json())
+        const stripe = Stripe(publishableKey)
+    
+        // Fetch the payment intent client secret
+        const {clientSecret} = await fetch("/stripe-payment-intent", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON .stringify({
+                refId: document.getElementById("refid").value,
+                amount: document.getElementById("amt").value,
+                currency: document.getElementById("currency").value
+            }) 
+        }).then(r => r.json())
+    
+        // Mount the elements
+        const elements = stripe.elements({clientSecret})
+        const paymentElement = elements.create('payment')
+        paymentElement.mount('#payment-element')
+    
+        const form = document.getElementById('payment-form')
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const {error, paymentIntent} = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    return_url: window.location.href.split('?')[0] + 'pledgepaymentresponse'
+                },
+                redirect: "if_required" // To stop redirects
+            })
+    
+            // TODO: This is not working....I would like to cancel the submission if error
+            const messages = document.getElementById('error-messages')
+            if (error) {
+                messages.innerText = error.message;
+                return false // To cancel the form action
+            }
+    
+            // TODO: This is not working....I would like to fill in a status prior to submission
+            // const form = document.getElementById('payment-form')
+            // const status = form.elements.status
+            // status.innerText = paymentIntent && paymentIntent.status ? paymentIntent.status : "N/A";
+            // status.value = paymentIntent && paymentIntent.status ? paymentIntent.status : "N/A";
+        })
+    })()
+</script>
+    

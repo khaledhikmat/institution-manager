@@ -9,6 +9,7 @@ require (
 )
 
 require (
+	github.com/ably/ably-go v1.2.17 // indirect
 	github.com/dapr/dapr v1.13.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/kr/pretty v0.3.1 // indirect

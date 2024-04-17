@@ -1,3 +1,5 @@
+github.com/ably/ably-go v1.2.17 h1:MjXfj6aFHkfts2mwROOa+JanixKfbHbNDmPSAv70isM=
+github.com/ably/ably-go v1.2.17/go.mod h1:wUxedacwNo9SU1L60VnjXDZeSP/dkyMHk2toig00XD0=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/dapr/dapr v1.13.0 h1:yExu47iCyqBSghAGVjgVjica4NfFd0dVlPXQTpQWR98=
 github.com/dapr/dapr v1.13.0/go.mod h1:VFjFGrLb84k5pjmWNn9reI5D28OQifdUbBdymXxbZDc=

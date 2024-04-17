@@ -120,11 +120,12 @@ func (a *CampaignActor) Pledge(ctx context.Context, evt member.MemberPledge) err
 	}
 
 	// The campaign event is for the externalizer
-	evt2 := equates.CampaignPledges{
-		Campaign: a.mainState,
-		Pledges:  a.pledgesState,
-	}
-	err = Daprclient.PublishEvent(ctx, equates.CAMPAIGN_PUB_SUB, equates.CAMPAIGNS_TOPIC, evt2)
+	// evt2 := equates.CampaignPledges{
+	// 	Campaign: a.mainState,
+	// 	Pledges:  a.pledgesState,
+	// }
+	// err = Daprclient.PublishEvent(ctx, equates.CAMPAIGN_PUB_SUB, equates.CAMPAIGNS_TOPIC, evt2)
+	err = Daprclient.PublishEvent(ctx, equates.CAMPAIGN_PUB_SUB, equates.CAMPAIGNS_TOPIC, a.mainState)
 	if err != nil {
 		fmt.Printf("publish event to campaigns topic errored out %v\n", err)
 		return err

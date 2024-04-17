@@ -17,6 +17,11 @@
                 container.removeChild(backdrop)
                 container.removeChild(modal)
             }, 200)
+
+            // Remove all Stripe iFrames
+            // This helps...but does not solve all issues
+            document.querySelectorAll('iframe')
+                .forEach(iframe => iframe.remove());
         }
     </script>
     <body>
