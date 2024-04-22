@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"time"
 
 	dapr "github.com/dapr/go-sdk/client"
 	"github.com/joho/godotenv"
@@ -14,6 +15,7 @@ import (
 	"github.com/khaledhikmat/institution-manager/shared/service/campaign"
 	"github.com/khaledhikmat/institution-manager/shared/service/member"
 	"github.com/khaledhikmat/institution-manager/shared/service/realtimer"
+	"github.com/khaledhikmat/institution-manager/shared/service/secret"
 )
 
 func main() {
@@ -35,6 +37,22 @@ func main() {
 		return
 	}
 	defer c.Close()
+
+	secretService, err := secret.NewSecretService(canxCtx, c)
+	if err != nil {
+		fmt.Println("Failed to create a secret service", err)
+		return
+	}
+	defer secretService.Finalize()
+
+	// Get Ably API Key
+	secret, err := secretService.Creds("ably.apiKey")
+	if err != nil {
+		fmt.Println("Failed to create a secret service", err)
+		//return // Do not abort for now
+	}
+
+	fmt.Println("*****Secret", secret)
 
 	// Create service layer
 	campaignService := campaign.NewService(canxCtx)
@@ -83,14 +101,18 @@ func main() {
 		httpServerErr <- server.Run(canxCtx, port)
 	}()
 
-	// Wait and pump
+	// Wait until server exits or context is cancelled
 	for {
 		select {
 		case err := <-httpServerErr:
-			fmt.Println("error", err)
+			fmt.Println("http server error", err)
 			return
 		case <-canxCtx.Done():
+			fmt.Println("application cancelled...")
 			cancel()
+			// Wait until downstream processors are done
+			fmt.Println("wait for 2 seconds until downstream processors are cancelled...")
+			time.Sleep(2 * time.Second)
 			return
 		}
 	}

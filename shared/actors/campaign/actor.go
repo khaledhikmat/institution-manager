@@ -113,7 +113,7 @@ func (a *CampaignActor) Pledge(ctx context.Context, evt member.MemberPledge) err
 
 	// If there is no error in processing the campaign,
 	// the actor fires two events: a pledge event and a campaign event
-	err := Daprclient.PublishEvent(ctx, equates.CAMPAIGN_PUB_SUB, equates.PLEDGES_TOPIC, evt)
+	err := Daprclient.PublishEvent(ctx, equates.InstitutionManagerPubSub, equates.PledgesTopic, evt)
 	if err != nil {
 		fmt.Printf("publish event to pledges topic errored out %v\n", err)
 		return err
@@ -125,7 +125,7 @@ func (a *CampaignActor) Pledge(ctx context.Context, evt member.MemberPledge) err
 	// 	Pledges:  a.pledgesState,
 	// }
 	// err = Daprclient.PublishEvent(ctx, equates.CAMPAIGN_PUB_SUB, equates.CAMPAIGNS_TOPIC, evt2)
-	err = Daprclient.PublishEvent(ctx, equates.CAMPAIGN_PUB_SUB, equates.CAMPAIGNS_TOPIC, a.mainState)
+	err = Daprclient.PublishEvent(ctx, equates.InstitutionManagerPubSub, equates.CampaignsTopic, a.mainState)
 	if err != nil {
 		fmt.Printf("publish event to campaigns topic errored out %v\n", err)
 		return err
@@ -134,13 +134,13 @@ func (a *CampaignActor) Pledge(ctx context.Context, evt member.MemberPledge) err
 	return nil
 }
 
-func (a *CampaignActor) Confirm(ctx context.Context, evt member.MemberPledge) error {
+func (a *CampaignActor) Confirm(_ context.Context, evt member.MemberPledge) error {
 	fmt.Printf("CampaignActor Confirm - CAMPAIGN ID: %s - MEMBER ID: %s - AMOUNT: %d\n", evt.CampaignID, evt.MemberID, evt.Amount)
 	// TODO:
 	return nil
 }
 
-func (a *CampaignActor) Decline(ctx context.Context, evt member.MemberPledge) error {
+func (a *CampaignActor) Decline(_ context.Context, evt member.MemberPledge) error {
 	fmt.Printf("CampaignActor Decline - CAMPAIGN ID: %s - MEMBER ID: %s - AMOUNT: %d\n", evt.CampaignID, evt.MemberID, evt.Amount)
 	// TODO:
 	return nil

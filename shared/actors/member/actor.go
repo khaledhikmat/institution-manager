@@ -130,7 +130,7 @@ func (a *MemberActor) Transact(ctx context.Context, evt member.MemberTransaction
 	a.saveState(ctx, transactionsStateKey)
 
 	// If there is no error, publish the event
-	err := Daprclient.PublishEvent(ctx, equates.CAMPAIGN_PUB_SUB, equates.TRANSACTIONS_TOPIC, evt)
+	err := Daprclient.PublishEvent(ctx, equates.InstitutionManagerPubSub, equates.TransactionsTopic, evt)
 	if err != nil {
 		fmt.Printf("publish event to pledges topic errored out %v\n", err)
 		return err

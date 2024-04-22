@@ -6,10 +6,12 @@ import (
 )
 
 const (
-	CAMPAIGN_PUB_SUB   = "campaign-pubsub" // name must match config/redis-pubsub.yaml
-	TRANSACTIONS_TOPIC = "transactions-topic"
-	PLEDGES_TOPIC      = "pledges-topic"
-	CAMPAIGNS_TOPIC    = "campaigns-topic"
+	InstitutionManagerSecrets    = "institution-manager-secrets"
+	InstitutionManagerStateStore = "institution-manager-statestore" // name must match config/redis-statestore.yaml
+	InstitutionManagerPubSub     = "institution-manager-pubsub"     // name must match config/redis-pubsub.yaml
+	TransactionsTopic            = "transactions-topic"
+	PledgesTopic                 = "pledges-topic"
+	CampaignsTopic               = "campaigns-topic"
 )
 
 type CampaignPledges struct {

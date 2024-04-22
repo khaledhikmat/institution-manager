@@ -20,9 +20,9 @@ import (
 )
 
 var transactionsTopicSubscription = &common.Subscription{
-	PubsubName: equates.CAMPAIGN_PUB_SUB,
-	Topic:      equates.TRANSACTIONS_TOPIC,
-	Route:      fmt.Sprintf("/%s", equates.TRANSACTIONS_TOPIC),
+	PubsubName: equates.InstitutionManagerPubSub,
+	Topic:      equates.TransactionsTopic,
+	Route:      fmt.Sprintf("/%s", equates.TransactionsTopic),
 }
 
 // Global DAPR client

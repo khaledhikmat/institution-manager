@@ -43,7 +43,7 @@ func Run(canxCtx context.Context, port string) error {
 	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
 	r.Use(cors.New(config))
 
-	// Set function map if any
+	// Set function map if any...
 
 	// Link up templates and static files
 	r.LoadHTMLGlob("./templates/**/*")
@@ -106,19 +106,24 @@ func getMemberID(_ *gin.Context) string {
 	return "100"
 }
 
-func cancellableGin(canxCtx context.Context, r *gin.Engine, port string) ginWithContext {
+func cancellableGin(_ context.Context, r *gin.Engine, port string) ginWithContext {
 	return func(ctx context.Context) error {
 		go func() {
-			r.Run(":" + port)
+			err := r.Run(":" + port)
+			if err != nil {
+				fmt.Println("Server start error...exiting", err)
+				return
+			}
 		}()
 
 		// Wait
 		for {
 			select {
 			case <-ctx.Done():
+				fmt.Println("Server context cancelled...existing!!!")
 				return ctx.Err()
 			case <-time.After(time.Duration(100 * time.Second)):
-				fmt.Println("Timeout....if there is something to do!!!")
+				fmt.Println("Timeout....do something periodic here!!!")
 			}
 		}
 	}

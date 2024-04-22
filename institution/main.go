@@ -21,9 +21,9 @@ import (
 )
 
 var pledgesTopicSubscription = &common.Subscription{
-	PubsubName: equates.CAMPAIGN_PUB_SUB,
-	Topic:      equates.PLEDGES_TOPIC,
-	Route:      fmt.Sprintf("/%s", equates.PLEDGES_TOPIC),
+	PubsubName: equates.InstitutionManagerPubSub,
+	Topic:      equates.PledgesTopic,
+	Route:      fmt.Sprintf("/%s", equates.PledgesTopic),
 }
 
 // Global DAPR client
@@ -76,7 +76,7 @@ func main() {
 	}
 }
 
-func pledgeInstitutionHandler(ctx context.Context, e *common.TopicEvent) (retry bool, err error) {
+func pledgeInstitutionHandler(_ context.Context, e *common.TopicEvent) (retry bool, err error) {
 	fmt.Println("pledgeInstitutionHandler....")
 
 	go func() {
